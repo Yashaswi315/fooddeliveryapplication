@@ -3,81 +3,248 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sign In & Sign Up</title>
+    <title>Food Website</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
-        function showSignUp() {
-            document.getElementById("signin").classList.add("hidden");
-            document.getElementById("signup").classList.remove("hidden");
+       function placeOrder() {
+            document.getElementById("orderPopup").classList.remove("hidden");
         }
-        function showSignIn() {
-            document.getElementById("signup").classList.add("hidden");
-            document.getElementById("signin").classList.remove("hidden");
-        }
-        function authenticate(event) {
-            event.preventDefault();
 
-            // Show popup message
-            document.getElementById("popup").classList.remove("hidden");
-
-            // Redirect after a short delay
-            setTimeout(() => {
-                window.location.href = "https://yashaswi315.github.io/foodapp/";
-            }, 2000);
-        }
         function closePopup() {
-            document.getElementById("popup").classList.add("hidden");
+            document.getElementById("orderPopup").classList.add("hidden");
+            document.getElementById("paymentPopup").classList.add("hidden");
         }
-    </script>
-    <style>
-        body {
-            background-image: url('foo.jpg'); /* Replace with your image */
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-        }
-    </style>
-</head>
-<body class="flex justify-center items-center h-screen relative bg-gray-900 bg-opacity-50">
 
-    <!-- Popup Message -->
-    <div id="popup" class="hidden fixed top-0 left-0 w-full h-full flex justify-center items-center bg-black bg-opacity-50">
-        <div class="bg-white p-6 rounded-lg shadow-lg text-center">
-            <h2 class="text-2xl font-bold text-green-500">🎉 Welcome to Food App! 🎉</h2>
-            <p class="mt-2 text-gray-600">Get ready to explore delicious meals!</p>
-           
+        function proceedToPayment() {
+            let inputs = document.querySelectorAll("#orderPopup input");
+            let select = document.querySelector("#orderPopup select");
+            
+            for (let input of inputs) {
+                if (input.value.trim() === "") {
+                    alert("Please fill in all address details before proceeding to payment.");
+                    return;
+                }
+            }
+            
+            if (select.value.trim() === "") {
+                alert("Please select a payment method before proceeding.");
+                return;
+            }
+            
+            document.getElementById("orderPopup").classList.add("hidden");
+            document.getElementById("paymentPopup").classList.remove("hidden");
+        }
+
+        function confirmPayment() {
+            let amount = document.getElementById("paymentAmount").value;
+            if (amount.trim() === "") {
+                alert("Please enter an amount to proceed with payment.");
+                return;
+            }
+        document.getElementById("paymentPopup").classList.add("hidden");
+        alert("Your payment of $" + amount + " was successful! Your order has been placed.");
+    }
+
+    function sendMessage(event) {
+        let name = document.getElementById("name").value.trim();
+        let email = document.getElementById("email").value.trim();
+        let message = document.getElementById("message").value.trim();
+
+        if (name === "" || email === "" || message === "") {
+            alert("Please fill in all fields before sending the message.");
+            return false; // Prevent form submission
+        }
+
+        alert("Your message has been sent!");
+        return true; // Allow form submission
+    }
+    </script>
+</head>
+<body class="bg-gray-100">
+    <!-- Navbar -->
+    <nav class="bg-white shadow-md p-4 flex justify-between items-center">
+        <h1 class="text-2xl font-bold text-red-500">Welcome to Our Food App</h1>
+        <ul class="hidden md:flex space-x-6">
+            <li><a href="#home" class="text-gray-700 hover:text-red-500">Home</a></li>
+            <li><a href="#about" class="text-gray-700 hover:text-red-500 font-bold text-lg">📖 About Us</a></li>
+            <li><a href="#services" class="text-gray-700 hover:text-red-500 font-bold text-lg">🍽️ Our Services</a></li>
+            <li><a href="#contact" class="text-gray-700 hover:text-red-500 font-bold text-lg">📞 Contact Us</a></li>
+            
+        </ul>
+    </nav>
+
+    <section id="home" class="h-screen flex flex-col justify-center items-center text-center p-6 bg-cover bg-center p-6" style="background-image: url('image.png');">
+       
+        
+    </section>
+
+    <!-- Hero Section -->
+    <section id="home" class="h-screen flex flex-col justify-center items-center text-center p-6">
+        <h2 class="text-4xl font-bold text-gray-800">Delicious Food at Your Doorstep</h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-8 gap-6 mt-6 grid-flow-row auto-rows-min">
+            <div class="bg-white p-4 shadow-md rounded-lg text-center">
+                <img src="burger.jpg" alt="Food Item" class="w-full h-40 object-cover rounded">
+                <h3 class="text-lg font-bold mt-2">Burger</h3>
+                <p class="text-gray-600 mt-1 text-lg font-semibold">₹109</p>
+                <button class="mt-4 bg-red-500 text-white px-6 py-2 rounded-full" onclick="placeOrder()">Order Now</button>
+            </div>
+            <div class="bg-white p-4 shadow-md rounded-lg text-center">
+                <img src="pizza.jpg" alt="Food Item" class="w-full h-40 object-cover rounded">
+                <h3 class="text-lg font-bold mt-2">Pizza</h3>
+                <p class="text-gray-600 mt-1 text-lg font-semibold">₹195</p>
+                <button class="mt-4 bg-red-500 text-white px-6 py-2 rounded-full" onclick="placeOrder()">Order Now</button>
+            </div>
+            <div class="bg-white p-4 shadow-md rounded-lg text-center">
+                <img src="pasta.jpg" alt="Food Item" class="w-full h-40 object-cover rounded">
+                <h3 class="text-lg font-bold mt-2">Pasta</h3>
+                <p class="text-gray-600 mt-1 text-lg font-semibold">₹267</p>
+                <button class="mt-4 bg-red-500 text-white px-6 py-2 rounded-full" onclick="placeOrder()">Order Now</button>
+            </div>
+            <div class="bg-white p-4 shadow-md rounded-lg text-center">
+                <img src="sushi.jpg" alt="Food Item" class="w-full h-40 object-cover rounded">
+                <h3 class="text-lg font-bold mt-2">Sushi</h3>
+                <p class="text-gray-600 mt-1 text-lg font-semibold">₹399</p>
+                <button class="mt-4 bg-red-500 text-white px-6 py-2 rounded-full" onclick="placeOrder()">Order Now</button>
+            </div>
+            <div class="bg-white p-4 shadow-md rounded-lg text-center">
+                <img src="salad.jpg" alt="Food Item" class="w-full h-40 object-cover rounded">
+                <h3 class="text-lg font-bold mt-2">Salad</h3>
+                <p class="text-gray-600 mt-1 text-lg font-semibold">₹99</p>
+                <button class="mt-4 bg-red-500 text-white px-6 py-2 rounded-full" onclick="placeOrder()">Order Now</button>
+            </div>
+            <div class="bg-white p-4 shadow-md rounded-lg text-center">
+                <img src="tacos.jpg" alt="Food Item" class="w-full h-40 object-cover rounded">
+                <h3 class="text-lg font-bold mt-2">Tacos</h3>
+                <p class="text-gray-600 mt-1 text-lg font-semibold">₹199</p>
+                <button class="mt-4 bg-red-500 text-white px-6 py-2 rounded-full" onclick="placeOrder()">Order Now</button>
+            </div>
+            <div class="bg-white p-4 shadow-md rounded-lg text-center">
+                <img src="coffee.jpg" alt="Food Item" class="w-full h-40 object-cover rounded">
+                <h3 class="text-lg font-bold mt-2">Coffee</h3>
+                <p class="text-gray-600 mt-1 text-lg font-semibold">₹39</p>
+                <button class="mt-4 bg-red-500 text-white px-6 py-2 rounded-full" onclick="placeOrder()">Order Now</button>
+            </div>
+            <div class="bg-white p-4 shadow-md rounded-lg text-center">
+                <img src="tea.jpg" alt="Food Item" class="w-full h-40 object-cover rounded">
+                <h3 class="text-lg font-bold mt-2">Tea</h3>
+                <p class="text-gray-600 mt-1 text-lg font-semibold">₹79</p>
+                <button class="mt-4 bg-red-500 text-white px-6 py-2 rounded-full" onclick="placeOrder()">Order Now</button>
+            </div>
+            <div class="bg-white p-4 shadow-md rounded-lg text-center">
+                <img src="smoothies.jpg" alt="Food Item" class="w-full h-40 object-cover rounded">
+                <h3 class="text-lg font-bold mt-2">Smoothies</h3>
+                <p class="text-gray-600 mt-1 text-lg font-semibold">₹129</p>
+                <button class="mt-4 bg-red-500 text-white px-6 py-2 rounded-full" onclick="placeOrder()">Order Now</button>
+            </div>
+            
+            <div class="bg-white p-4 shadow-md rounded-lg text-center">
+                <img src="fruit salad.jpg" alt="Food Item" class="w-full h-40 object-cover rounded">
+                <h3 class="text-lg font-bold mt-2">Fruit Salad</h3>
+                <p class="text-gray-600 mt-1 text-lg font-semibold">₹79</p>
+                <button class="mt-4 bg-red-500 text-white px-6 py-2 rounded-full" onclick="placeOrder()">Order Now</button>
+            </div>
+            <div class="bg-white p-4 shadow-md rounded-lg text-center">
+                <img src="chocolate.jpg" alt="Food Item" class="w-full h-40 object-cover rounded">
+                <h3 class="text-lg font-bold mt-2">Chocolate Cake</h3>
+                <p class="text-gray-600 mt-1 text-lg font-semibold">₹69</p>
+                <button class="mt-4 bg-red-500 text-white px-6 py-2 rounded-full" onclick="placeOrder()">Order Now</button>
+            </div>
+            <div class="bg-white p-4 shadow-md rounded-lg text-center">
+                <img src="browni.jpg" alt="Food Item" class="w-full h-40 object-cover rounded">
+                <h3 class="text-lg font-bold mt-2">Brownies</h3>
+                <p class="text-gray-600 mt-1 text-lg font-semibold">₹112</p>
+                <button class="mt-4 bg-red-500 text-white px-6 py-2 rounded-full" onclick="placeOrder()">Order Now</button>
+            </div>
+            <div class="bg-white p-4 shadow-md rounded-lg text-center">
+                <img src="chicken.jpg" alt="Food Item" class="w-full h-40 object-cover rounded">
+                <h3 class="text-lg font-bold mt-2">Grilled Chicken</h3>
+                <p class="text-gray-600 mt-1 text-lg font-semibold">₹259</p>
+                <button class="mt-4 bg-red-500 text-white px-6 py-2 rounded-full" onclick="placeOrder()">Order Now</button>
+            </div>
+            <div class="bg-white p-4 shadow-md rounded-lg text-center">
+                <img src="greek.jpg" alt="Food Item" class="w-full h-40 object-cover rounded">
+                <h3 class="text-lg font-bold mt-2">Greek Salad</h3>
+                <p class="text-gray-600 mt-1 text-lg font-semibold">₹80</p>
+                <button class="mt-4 bg-red-500 text-white px-6 py-2 rounded-full" onclick="placeOrder()">Order Now</button>
+            </div>
+            <div class="bg-white p-4 shadow-md rounded-lg text-center">
+                <img src="caesar.jpg" alt="Food Item" class="w-full h-40 object-cover rounded">
+                <h3 class="text-lg font-bold mt-2">Caesar Salad</h3>
+                <p class="text-gray-600 mt-1 text-lg font-semibold">₹94</p>
+                <button class="mt-4 bg-red-500 text-white px-6 py-2 rounded-full" onclick="placeOrder()">Order Now</button>
+            </div>
+            <div class="bg-white p-4 shadow-md rounded-lg text-center">
+                <img src="sand.jpg" alt="Food Item" class="w-full h-40 object-cover rounded">
+                <h3 class="text-lg font-bold mt-2">Sandwich</h3>
+                <p class="text-gray-600 mt-1 text-lg font-semibold">₹124</p>
+                <button class="mt-4 bg-red-500 text-white px-6 py-2 rounded-full" onclick="placeOrder()">Order Now</button>
+            </div>
+            
+        </div>
+    </section>
+
+    <!-- Order Popup -->
+    <div id="orderPopup" class="hidden fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+        <div class="bg-white p-6 rounded-lg shadow-md w-96">
+            <h2 class="text-xl font-bold mb-4">Enter Your Address</h2>
+            <input type="text" placeholder="Full Name" class="w-full p-2 mb-2 border rounded">
+            <input type="text" placeholder="Street Address" class="w-full p-2 mb-2 border rounded">
+            <input type="text" placeholder="City" class="w-full p-2 mb-2 border rounded">
+            <input type="text" placeholder="State" class="w-full p-2 mb-2 border rounded">
+            <input type="text" placeholder="Postal Code" class="w-full p-2 mb-2 border rounded">
+            <h2 class="text-xl font-bold mb-2">Payment Method</h2>
+            <select class="w-full p-2 mb-4 border rounded">
+                <option>Credit Card</option>
+                <option>Debit Card</option>
+                <option>PayPal</option>
+                <option>Cash on Delivery</option>
+            </select>
+            <div class="flex justify-between mt-4">
+                <button class="bg-red-500 text-white px-4 py-2 rounded" onclick="proceedToPayment()">Proceed to Payment</button>
+                <button class="bg-gray-500 text-white px-4 py-2 rounded" onclick="closePopup()">Cancel</button>
+            </div>
         </div>
     </div>
+
+    <!-- Payment Popup -->
+   <div id="paymentPopup" class="hidden fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+    <div class="bg-white p-6 rounded-lg shadow-md w-96">
+        <h2 class="text-xl font-bold mb-4">Enter Payment Amount</h2>
+        <input type="number" id="paymentAmount" placeholder="Enter Amount" class="w-full p-2 mb-4 border rounded">
+        <p>Please confirm your payment to place your order.</p>
+
+        <div class="flex justify-between mt-4">
+            <button class="bg-green-500 text-white px-4 py-2 rounded" onclick="confirmPayment()">Confirm Payment</button>
+            <button class="bg-gray-500 text-white px-4 py-2 rounded" onclick="closePopup()">Cancel</button>
+        </div>
+    </div>
+</div>
+
 
     
+<section id="about" class="p-6 bg-white text-center">
+    <h2 class="text-3xl font-bold text-purple-600">📖 About Us</h2>
+    <p class="text-gray-600 mt-2">We are passionate about delivering delicious food straight to your doorstep with the freshest ingredients and best service.</p>
+</section>
 
-    <div class="bg-white p-8 rounded-lg shadow-lg w-96 text-center bg-opacity-90">
-        <!-- Image Placeholder -->
-        <img src="foo.jpg" alt="Delicious Food" class="w-24 h-24 mx-auto mb-4 rounded-full border">
+<!-- Our Services Section -->
+<section id="services" class="p-6 bg-gray-100 text-center">
+    <h2 class="text-3xl font-bold text-red-500">🍽️ Our Services</h2>
+    <p class="text-gray-600 mt-2">We provide fast and reliable food delivery with a wide variety of cuisines to choose from.</p>
+</section>
 
-        <!-- Sign In Form -->
-        <div id="signin">
-            <h2 class="text-2xl font-bold mb-4">Sign In</h2>
-            <form onsubmit="authenticate(event)">
-                <input type="email" placeholder="Email" class="w-full p-2 mb-2 border rounded" required>
-                <input type="password" placeholder="Password" class="w-full p-2 mb-4 border rounded" required>
-                <button class="bg-blue-500 text-white px-6 py-2 rounded w-full">Sign In</button>
-            </form>
-            <p class="mt-4">Don't have an account? <a href="#" class="text-blue-500" onclick="showSignUp()">Sign Up</a></p>
-        </div>
-        
-        <!-- Sign Up Form -->
-        <div id="signup" class="hidden">
-            <h2 class="text-2xl font-bold mb-4">Sign Up</h2>
-            <form onsubmit="authenticate(event)">
-                <input type="text" placeholder="Full Name" class="w-full p-2 mb-2 border rounded" required>
-                <input type="email" placeholder="Email" class="w-full p-2 mb-2 border rounded" required>
-                <input type="password" placeholder="Password" class="w-full p-2 mb-4 border rounded" required>
-                <button class="bg-green-500 text-white px-6 py-2 rounded w-full">Sign Up</button>
-            </form>
-            <p class="mt-4">Already have an account? <a href="#" class="text-blue-500" onclick="showSignIn()">Sign In</a></p>
-        </div>
-    </div>
 
+    <!-- Contact Section -->
+    <section id="contact" class="p-6 bg-white text-center mt-6">
+        <h2 class="text-3xl font-bold text-gray-800">📞 Contact Us</h2>
+        <p class="text-gray-600 mt-2">Get in touch for orders and inquiries.</p>
+        <form class="mt-4 max-w-md mx-auto" onsubmit="return sendMessage(event);">
+            <input type="text" id="name" placeholder="Your Name" class="w-full p-2 mb-2 border rounded">
+            <input type="email" id="email" placeholder="Your Email" class="w-full p-2 mb-2 border rounded">
+            <textarea id="message" placeholder="Your Message" class="w-full p-2 mb-2 border rounded"></textarea>
+            <button type="submit" class="bg-red-500 text-white px-6 py-2 rounded">Send Message</button>
+        </form>
+    </section>
 </body>
 </html>
